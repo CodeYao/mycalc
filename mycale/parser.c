@@ -7,6 +7,8 @@
 static Token st_look_ahead_token;
 static int st_look_ahead_token_exists;
 
+double parse_expression();
+
 static void my_get_token(Token *token){
     if(st_look_ahead_token_exists){
         *token = st_look_ahead_token;
@@ -23,10 +25,19 @@ static void unget_token(Token *token){
 
 double parse_primary_expression(){
     Token token;
+    double value;
 
     my_get_token(&token);
     if(token.kind == NUMBER_TOKEN){
         return token.value;
+    }else if(token.kind == LEFT_PAREN_TOKEN){
+        value = parse_expression();
+        my_get_token(&token);
+        if(token.kind != RIGHT_PAREN_TOKEN){
+             fprintf(stderr, "missing ')' error.\n");
+             exit(1);
+        }
+        return value;
     }
     fprintf(stderr, "syntax error.\n");
     exit(1);

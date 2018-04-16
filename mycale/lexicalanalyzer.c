@@ -71,6 +71,12 @@ void get_token(Token *token){
                 fprintf(stderr, "syntax error.\n");
                 exit(1);
             }
+        } else if(current_char == '('){
+            token->kind = LEFT_PAREN_TOKEN;
+            return;
+        } else if(current_char == ')'){
+            token->kind = RIGHT_PAREN_TOKEN;
+            return;
         } else {
             fprintf(stderr, "bad character(%c)\n", current_char);
             exit(1);
