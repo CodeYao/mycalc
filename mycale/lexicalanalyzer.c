@@ -13,7 +13,7 @@ typedef enum {
     IN_FRAC_PART_STATUS
 } LexerStatus;
 
-void get_toke(Token *token){
+void get_token(Token *token){
     int out_pos = 0;
     LexerStatus status = INITIAL_STATUS;
     char current_char;
@@ -83,26 +83,26 @@ void set_line(char *line){
     st_line_pos = 0;
 }
 
-/* 测试驱动代码 */
-void parse_line(char *buf){
-    Token token;
+// /* 测试驱动代码 */
+// void parse_line(char *buf){
+//     Token token;
 
-    set_line(buf);
+//     set_line(buf);
 
-    for(;;){
-        get_toke(&token);
-        if(token.kind == END_OF_LINE_TOKEN){
-            break;
-        } else{
-            printf("kind..%d, str..%s\n", token.kind, token.str);
-        }
-    }
-}
+//     for(;;){
+//         get_toke(&token);
+//         if(token.kind == END_OF_LINE_TOKEN){
+//             break;
+//         } else{
+//             printf("kind..%d, str..%s\n", token.kind, token.str);
+//         }
+//     }
+// }
 
-int main(int argc, char **argv){
-    char buf[1024];
-    while (fgets(buf, 1024, stdin)!=NULL){
-        parse_line(buf);
-    }
-    return 0;
-}
+// int main(int argc, char **argv){
+//     char buf[1024];
+//     while (fgets(buf, 1024, stdin)!=NULL){
+//         parse_line(buf);
+//     }
+//     return 0;
+// }
