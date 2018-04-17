@@ -25,11 +25,23 @@ static void unget_token(Token *token){
 
 double parse_primary_expression(){
     Token token;
-    double value;
+    double value = 0.0;
+    int minus_flages = 0;
+
+    my_get_token(&token);
+    if(token.kind == SUB_OPERATOR_TOKEN){
+        minus_flages = 1;
+    }else{
+        unget_token(&token);
+    }
 
     my_get_token(&token);
     if(token.kind == NUMBER_TOKEN){
-        return token.value;
+        if(minus_flages){
+            return -token.value;
+        }else{
+            return token.value;
+        } 
     }else if(token.kind == LEFT_PAREN_TOKEN){
         value = parse_expression();
         my_get_token(&token);
@@ -37,7 +49,11 @@ double parse_primary_expression(){
              fprintf(stderr, "missing ')' error.\n");
              exit(1);
         }
-        return value;
+        if(minus_flages){
+            return -value;
+        }else{
+            return value;
+        } 
     }
     fprintf(stderr, "syntax error.\n");
     exit(1);
